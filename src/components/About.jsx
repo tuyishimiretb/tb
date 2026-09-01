@@ -36,10 +36,9 @@ const stats = [
 ]
 
 const journey = [
-  { year: '2020', event: 'Started Computer Science at University of Rwanda' },
-  { year: '2022', event: 'Completed ALX Africa Bootcamp, built first production app' },
-  { year: '2023', event: 'Joined Digital Solutions Ltd. as Full Stack Developer' },
-  { year: '2025', event: 'Promoted to Senior Developer at Tech Innovators Inc.' },
+  { year: '2023', event: 'Started Software Development Level 3, mastering programming fundamentals and web basics' },
+  { year: '2024', event: 'Advanced to Software Development Level 4, building full-stack applications' },
+  { year: '2025', event: 'Reached Software Development Level 5, working on real-world projects with modern frameworks' },
 ]
 
 export default function About() {
