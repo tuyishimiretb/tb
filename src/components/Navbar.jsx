@@ -3,11 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion'
 import AnimatedLogo from './AnimatedLogo'
 
 const navLinks = [
-  { name: 'Home', href: '#home', num: '01' },
-  { name: 'About', href: '#about', num: '02' },
-  { name: 'Skills', href: '#skills', num: '03' },
-  { name: 'Projects', href: '#projects', num: '04' },
-  { name: 'Contact', href: '#contact', num: '05' },
+  { name: 'Home', href: '#home', num: '01', desc: 'Welcome & introduction' },
+  { name: 'About', href: '#about', num: '02', desc: 'My journey & story' },
+  { name: 'Skills', href: '#skills', num: '03', desc: 'Technologies & expertise' },
+  { name: 'Projects', href: '#projects', num: '04', desc: 'Featured work & portfolio' },
+  { name: 'Experience', href: '#experience', num: '05', desc: 'Work history & roles' },
+  { name: 'Education', href: '#education', num: '06', desc: 'Academic background' },
+  { name: 'Contact', href: '#contact', num: '07', desc: 'Get in touch' },
 ]
 
 export default function Navbar() {
@@ -15,6 +17,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const [active, setActive] = useState('#home')
   const [hoveredLink, setHoveredLink] = useState(null)
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 })
   const navRef = useRef(null)
 
   useEffect(() => {
@@ -152,7 +155,11 @@ export default function Navbar() {
                   <motion.a
                     key={link.href}
                     href={link.href}
-                    onMouseEnter={() => setHoveredLink(link.href)}
+                    onMouseEnter={(e) => {
+                      setHoveredLink(link.href)
+                      const rect = e.currentTarget.getBoundingClientRect()
+                      setTooltipPos({ x: rect.left + rect.width / 2, y: rect.bottom + 8 })
+                    }}
                     onMouseLeave={() => setHoveredLink(null)}
                     style={{
                       padding: '5px 10px',
@@ -170,7 +177,7 @@ export default function Navbar() {
                       display: 'flex',
                       alignItems: 'center',
                       gap: 4,
-                      overflow: 'hidden',
+                      overflow: 'visible',
                     }}
                   >
                     {/* Background pill on hover */}
@@ -233,6 +240,39 @@ export default function Navbar() {
                 )
               })}
             </div>
+
+            {/* Tooltip */}
+            <AnimatePresence>
+              {hoveredLink && (
+                <motion.div
+                  initial={{ opacity: 0, y: -4, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -4, scale: 0.95 }}
+                  transition={{ duration: 0.15 }}
+                  style={{
+                    position: 'fixed',
+                    left: tooltipPos.x,
+                    top: tooltipPos.y,
+                    transform: 'translateX(-50%)',
+                    padding: '6px 14px',
+                    borderRadius: 8,
+                    background: 'rgba(8,6,5,0.92)',
+                    backdropFilter: 'blur(12px)',
+                    border: '1px solid rgba(var(--primary-rgb),0.15)',
+                    fontSize: '0.7rem',
+                    color: 'var(--text-secondary)',
+                    fontFamily: 'var(--font-mono)',
+                    whiteSpace: 'nowrap',
+                    pointerEvents: 'none',
+                    zIndex: 100,
+                    boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+                  }}
+                  className="nav-tooltip"
+                >
+                  {navLinks.find(l => l.href === hoveredLink)?.desc}
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* Resume CTA */}
             <motion.a
@@ -376,6 +416,7 @@ export default function Navbar() {
           .status-badge { display: none !important; }
           .resume-cta { display: none !important; }
           .mobile-btn { display: flex !important; }
+          .nav-tooltip { display: none !important; }
         }
       `}</style>
     </>

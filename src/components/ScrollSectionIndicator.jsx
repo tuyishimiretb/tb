@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 
 const sections = [
@@ -17,14 +17,11 @@ export default function ScrollSectionIndicator() {
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
-      let found = false
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           setActive(entry.target.id)
-          found = true
         }
       })
-      // Only show after scrolling past hero
       if (window.scrollY > window.innerHeight * 0.5) {
         setVisible(true)
       } else {
@@ -76,7 +73,6 @@ export default function ScrollSectionIndicator() {
       }}
       className="section-indicator"
     >
-      {/* Current section number */}
       <motion.div
         key={active}
         initial={{ opacity: 0, y: -10 }}
@@ -93,7 +89,6 @@ export default function ScrollSectionIndicator() {
         {currentSection?.num}
       </motion.div>
 
-      {/* Progress dots */}
       <div style={{
         display: 'flex',
         flexDirection: 'column',
@@ -136,7 +131,6 @@ export default function ScrollSectionIndicator() {
         })}
       </div>
 
-      {/* Section name */}
       <motion.div
         key={`name-${active}`}
         initial={{ opacity: 0, y: 10 }}

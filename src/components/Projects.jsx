@@ -4,58 +4,37 @@ import RevealText from './RevealText'
 
 const projects = [
   {
-    title: 'E-Commerce Platform',
-    desc: 'Full-featured online store with real-time inventory, payment processing, and admin dashboard.',
-    tags: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+    title: 'Photography Delivery',
+    desc: 'Full-stack photo gallery delivery platform for photographers. Clients access albums via unique codes, view in lightbox, and download photos. Features admin dashboard, Cloudinary storage, ZIP downloads, and automatic expiration cleanup.',
+    tags: ['React', 'Node.js', 'Express', 'MongoDB', 'Cloudinary', 'Docker'],
     color: '#FF6B35',
     gradient: 'linear-gradient(135deg, #FF6B35, #06D6A0)',
-    metric: '10k+ users',
+    metric: 'Full-Stack',
     bento: 'wide',
+    demo: 'https://tuyishimiretb.github.io/photography-delivery/',
+    source: 'https://github.com/tuyishimiretb/photography-delivery',
   },
   {
-    title: 'Real-Time Chat App',
-    desc: 'Scalable messaging with real-time updates, file sharing, and group chat using Socket.io.',
-    tags: ['React', 'Socket.io', 'Express', 'Redis'],
+    title: 'Birthday Wishes',
+    desc: 'Interactive birthday celebration web app with animated confetti, countdown timer, customizable greeting cards, real-time comments with admin approval, photo uploads, and a full admin dashboard. Powered by Firebase and GSAP.',
+    tags: ['HTML/CSS/JS', 'Firebase', 'GSAP', 'Canvas API'],
     color: '#FFB703',
     gradient: 'linear-gradient(135deg, #FFB703, #E04A1A)',
-    metric: '50k+ messages',
-    bento: 'tall',
+    metric: 'Frontend',
+    bento: 'wide',
+    demo: 'https://tuyishimiretb.github.io/birthday-wishes/',
+    source: 'https://github.com/tuyishimiretb/birthday-wishes',
   },
   {
-    title: 'Task Management System',
-    desc: 'Collaborative project management with Kanban boards, task tracking, and team features.',
-    tags: ['Next.js', 'TypeScript', 'PostgreSQL', 'Prisma'],
+    title: 'create-mytb',
+    desc: 'A Node.js CLI tool that displays a styled terminal business card with profile info, generates QR codes linking to your portfolio, and outputs data as JSON. Run instantly via npx create-mytb.',
+    tags: ['Node.js', 'CLI', 'QR Code', 'npm'],
     color: '#06D6A0',
     gradient: 'linear-gradient(135deg, #06D6A0, #95D5B2)',
-    metric: '5k+ tasks',
-    bento: 'normal',
-  },
-  {
-    title: 'AI Content Generator',
-    desc: 'AI-powered content creation leveraging OpenAI for blog posts, social media, and more.',
-    tags: ['React', 'Python', 'OpenAI', 'FastAPI'],
-    color: '#FF8C5A',
-    gradient: 'linear-gradient(135deg, #FF8C5A, #FFB703)',
-    metric: '15k+ generations',
-    bento: 'normal',
-  },
-  {
-    title: 'Weather Dashboard',
-    desc: 'Beautiful weather dashboard with interactive maps, 7-day forecasts, and weather alerts.',
-    tags: ['React', 'TypeScript', 'Tailwind', 'Chart.js'],
-    color: '#95D5B2',
-    gradient: 'linear-gradient(135deg, #95D5B2, #FF6B35)',
-    metric: 'Live data',
-    bento: 'normal',
-  },
-  {
-    title: 'Analytics Platform',
-    desc: 'Real-time analytics dashboard with interactive charts, user tracking, and reporting.',
-    tags: ['React', 'D3.js', 'Node.js', 'InfluxDB'],
-    color: '#FFD166',
-    gradient: 'linear-gradient(135deg, #FFD166, #E04A1A)',
-    metric: '1M+ events',
+    metric: 'npx',
     bento: 'wide',
+    demo: 'https://www.npmjs.com/package/create-mytb',
+    source: 'https://github.com/tuyishimiretb/create-mytb',
   },
 ]
 
@@ -211,7 +190,7 @@ function TiltCard({ project, index }) {
               transform: 'translateZ(30px)',
             }}>
               <motion.a
-                href="#"
+                href={project.demo}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
@@ -227,7 +206,7 @@ function TiltCard({ project, index }) {
                 Live Demo
               </motion.a>
               <motion.a
-                href="#"
+                href={project.source}
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05 }}
@@ -326,10 +305,7 @@ export default function Projects() {
             const spans = [
               { col: 'span 3', row: 'span 1' },
               { col: 'span 3', row: 'span 1' },
-              { col: 'span 2', row: 'span 1' },
-              { col: 'span 2', row: 'span 1' },
-              { col: 'span 2', row: 'span 1' },
-              { col: 'span 6', row: 'span 1' },
+              { col: 'span 3', row: 'span 1' },
             ]
             return (
               <div key={project.title} style={{
