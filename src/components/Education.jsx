@@ -3,35 +3,30 @@ import { FiBookOpen, FiCalendar } from './Icons.jsx'
 
 const education = [
   {
-    degree: "Bachelor's in Computer Science",
-    school: 'University of Rwanda',
-    period: '2020 - 2024',
-    description: 'Focused on software engineering, data structures, and algorithms. Graduated with honors and participated in multiple hackathons.',
+    degree: 'Software Development - Level 3',
+    period: '2023 - 2024',
+    description: 'Foundation of software development including programming fundamentals, database concepts, and web development basics.',
     achievements: [
-      'Graduated Top 10% of class',
-      'Won 2 university hackathons',
-      'Published research on web performance optimization',
+      'Built foundational programming and problem-solving skills',
+      'Gained hands-on experience with databases and web technologies',
     ],
   },
   {
-    degree: 'Full Stack Web Development Bootcamp',
-    school: 'ALX Africa',
-    period: '2022',
-    description: 'Intensive 12-month program covering modern web technologies, software engineering best practices, and real-world project experience.',
+    degree: 'Software Development - Level 4',
+    period: '2024 - 2025',
+    description: 'Advanced software development concepts including object-oriented programming, system analysis, and full-stack development.',
     achievements: [
-      'Completed 20+ projects across the curriculum',
-      'Developed a capstone project used by 100+ students',
-      'Achieved top percentile in cohort assessments',
+      'Developed full-stack applications and API integrations',
+      'Strengthened teamwork and project management skills',
     ],
   },
   {
-    degree: 'High School Diploma - Science',
-    school: 'Ecole des Sciences de Kigali',
-    period: '2017 - 2019',
-    description: 'Specialized in mathematics, physics, and computer science foundations.',
+    degree: 'Software Development - Level 5',
+    period: '2025 - 2025',
+    description: 'Specialized training focused on software engineering best practices, modern frameworks, and real-world project delivery.',
     achievements: [
-      'Best in Computer Science Department',
-      'Science fair winner - 2nd place',
+      'Working on industry-level projects with modern frameworks',
+      'Preparing for professional certification and job placement',
     ],
   },
 ]
@@ -135,15 +130,6 @@ export default function Education() {
                 }}>
                   {edu.degree}
                 </h3>
-
-                <p style={{
-                  color: 'var(--primary-light)',
-                  fontSize: '0.85rem',
-                  fontWeight: 500,
-                  marginBottom: 10,
-                }}>
-                  {edu.school}
-                </p>
 
                 <p style={{
                   color: 'var(--text-muted)',
