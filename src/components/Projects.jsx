@@ -5,13 +5,13 @@ import RevealText from './RevealText'
 const projects = [
   {
     title: 'Photography Delivery',
-    desc: 'Full-stack photo gallery delivery platform for photographers. Clients access albums via unique codes, view in lightbox, and download photos. Features admin dashboard, Cloudinary storage, ZIP downloads, and automatic expiration cleanup.',
-    tags: ['React', 'Node.js', 'Express', 'MongoDB', 'Cloudinary', 'Docker'],
+    desc: 'Photo gallery delivery platform for photographers. Clients access albums via unique access codes, browse in a responsive gallery with lightbox, and download photos. Try the live demo with code SAMPLE-1.',
+    tags: ['React', 'Node.js', 'Express', 'MongoDB', 'Cloudinary'],
     color: '#FF6B35',
     gradient: 'linear-gradient(135deg, #FF6B35, #06D6A0)',
     metric: 'Full-Stack',
     bento: 'wide',
-    demo: 'https://tuyishimiretb.github.io/photography-delivery/',
+    demo: 'https://tuyishimiretb.github.io/photography-delivery-demo/',
     source: 'https://github.com/tuyishimiretb/photography-delivery',
   },
   {
