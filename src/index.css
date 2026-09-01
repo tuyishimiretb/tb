@@ -56,7 +56,12 @@
   --shadow-glow: 0 0 40px rgba(var(--primary-rgb), 0.12);
 }
 
-html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--primary) transparent; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 96px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
 
 body {
   font-family: var(--font-sans);
