@@ -1,6 +1,8 @@
 import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xjyvyokq'
+
 function MagneticWrap({ children, strength = 0.2 }) {
   const ref = useRef(null)
   const [pos, setPos] = useState({ x: 0, y: 0 })
@@ -28,9 +30,8 @@ function MagneticWrap({ children, strength = 0.2 }) {
   )
 }
 
-function FloatingInput({ label, type = 'text', textarea = false }) {
+function FloatingInput({ label, type = 'text', textarea = false, value, onChange }) {
   const [focused, setFocused] = useState(false)
-  const [value, setValue] = useState('')
   const isActive = focused || value.length > 0
 
   const Component = textarea ? 'textarea' : 'input'
@@ -43,10 +44,11 @@ function FloatingInput({ label, type = 'text', textarea = false }) {
       <Component
         type={textarea ? undefined : type}
         value={value}
-        onChange={(e) => setValue(e.target.value)}
+        onChange={(e) => { onChange(e.target.value); if (type === 'email') onChange(e.target.value.toLowerCase()) }}
         onFocus={() => setFocused(true)}
         onBlur={() => setFocused(false)}
         rows={textarea ? 5 : undefined}
+        required
         style={{
           width: '100%',
           padding: textarea ? '22px 16px 12px' : '22px 16px 8px',
@@ -81,13 +83,36 @@ function FloatingInput({ label, type = 'text', textarea = false }) {
 }
 
 export default function Contact() {
-  const [submitted, setSubmitted] = useState(false)
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [status, setStatus] = useState('idle')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 3000)
+    setStatus('sending')
+    try {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ name, email, message }),
+      })
+      if (res.ok) {
+        setStatus('success')
+        setName(''); setEmail(''); setMessage('')
+      } else {
+        setStatus('error')
+      }
+    } catch (err) {
+      setStatus('error')
+    }
   }
+
+  const buttonLabel =
+    status === 'sending' ? 'Sending...' :
+    status === 'success' ? '✓ Message Sent!' :
+    status === 'error' ? '✗ Failed — try again' :
+    'Send Message →'
 
   return (
     <section id="contact" style={{
@@ -208,21 +233,30 @@ export default function Contact() {
               gap: 4,
             }}
           >
-            <FloatingInput label="Your Name" />
-            <FloatingInput label="Your Email" type="email" />
-            <FloatingInput label="Your Message" textarea />
+            <FloatingInput label="Your Name" value={name} onChange={setName} />
+            <FloatingInput label="Your Email" type="email" value={email} onChange={setEmail} />
+            <FloatingInput label="Your Message" textarea value={message} onChange={setMessage} />
+
+            {status === 'error' && (
+              <p style={{ color: 'var(--danger)', fontSize: '0.8rem', marginTop: 8 }}>
+                Couldn't send. Please check your connection and try again.
+              </p>
+            )}
 
             <MagneticWrap strength={0.15}>
               <motion.button
                 type="submit"
+                disabled={status === 'sending'}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 style={{
                   marginTop: 16,
                   padding: '14px 32px',
-                  background: submitted
+                  background: status === 'success'
                     ? 'linear-gradient(135deg, #06D6A0, #FFB703)'
-                    : 'var(--gradient-1)',
+                    : status === 'error'
+                      ? 'linear-gradient(135deg, #E74C3C, #C0392B)'
+                      : 'var(--gradient-1)',
                   color: 'white',
                   borderRadius: 12,
                   border: 'none',
@@ -234,11 +268,12 @@ export default function Contact() {
                   justifyContent: 'center',
                   gap: 8,
                   transition: 'all 0.3s',
-                  boxShadow: submitted ? 'none' : '0 4px 20px rgba(var(--primary-rgb),0.3)',
+                  boxShadow: status === 'success' ? 'none' : '0 4px 20px rgba(var(--primary-rgb),0.3)',
                   width: '100%',
+                  opacity: status === 'sending' ? 0.7 : 1,
                 }}
               >
-                {submitted ? '✓ Message Sent!' : 'Send Message →'}
+                {buttonLabel}
               </motion.button>
             </MagneticWrap>
           </motion.form>
